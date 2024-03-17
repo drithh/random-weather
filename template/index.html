@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/output.css" />
+    <script
+      src="https://kit.fontawesome.com/3fcf720a1b.js"
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://cdn.jsdelivr.net/npm/htmx.org@1.9.11/dist/htmx.min.js"></script>
+    <script src="https://unpkg.com/htmx.org@1.9.11/dist/ext/ws.js"></script>
+  </head>
+  <body>
+    <div hx-ext="ws" ws-connect="/ws">
+      <div class="flex justify-center py-10 flex-col max-w-screen-md mx-auto">
+        <div class="flex flex-col gap-4 items-center">
+          <div class="text-3xl font-semibold text-center">
+            Random Weather App
+          </div>
+          <div class="text-lg text-gray-500 text-center">
+            This is a random weather app to simulate microservices
+          </div>
+        </div>
+        <div
+          id="main"
+          class="flex flex-col gap-4 place-items-center place-content-center py-10"
+        ></div>
+      </div>
+
+      <div
+        class="justify-center mx-auto max-w-md p-4 border rounded-lg flex flex-col gap-4 bg-white shadow-lg"
+      >
+        <table class="w-full">
+          <thead>
+            <tr class="bg-transparent border-b last:border-b-0">
+              <th
+                class="px-4 py-2 text-sm font-medium text-gray-500 dark:text-gray-400"
+              >
+                Time
+              </th>
+              <th
+                class="px-4 py-2 text-sm font-medium text-gray-500 dark:text-gray-400"
+              >
+                Object
+              </th>
+              <th
+                class="px-4 py-2 text-sm font-medium text-gray-500 dark:text-gray-400"
+              >
+                Value
+              </th>
+
+              <th
+                class="px-4 py-2 text-sm font-medium text-gray-500 dark:text-gray-400"
+              >
+                Condition
+              </th>
+            </tr>
+          </thead>
+          <tbody class="text-center" id="table"></tbody>
+        </table>
+      </div>
+    </div>
+  </body>
+  <script type="text/javascript" defer>
+    let socket;
+    let elt;
+    document.body.addEventListener('htmx:wsOpen', function (evt) {
+      console.log('connected');
+
+      socket = evt.detail.socketWrapper;
+      elt = evt.detail.elt;
+
+      status.innerText = 'Connected';
+    });
+    document.body.addEventListener('htmx:wsClose', function (evt) {
+      console.log('disconnected');
+      status.innerText = 'Disconnected';
+    });
+  </script>
+</html>

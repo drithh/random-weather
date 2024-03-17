@@ -1,0 +1,21 @@
+<tbody hx-swap-oob="afterbegin" id="table">
+  {{range .}}
+  <tr class="bg-transparent border-b last:border-b-0">
+    <td class="px-4 py-2 text-sm text-gray-500 dark:text-gray-400">
+      {{ .time }}
+    </td>
+    <td class="px-4 py-2 text-sm text-gray-500 dark:text-gray-400 uppercase">
+      {{ .name }}
+    </td>
+    <td class="px-4 py-2 text-sm text-gray-500 dark:text-gray-400">
+      {{ .value }} {{ .unit }}
+    </td>
+    <td class="px-4 py-2 text-sm text-gray-500 dark:text-gray-400">
+      <span class="text-green-600">
+        {{ if eq .condition 0 }} Aman {{ else if eq .condition 1 }} Siaga {{
+        else }} Bahaya {{end}}
+      </span>
+    </td>
+  </tr>
+  {{end}}
+</tbody>
